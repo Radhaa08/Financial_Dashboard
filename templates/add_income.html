@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        form > div {
+            flex: 1;
+            margin: 10px;
+        }
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        form input, form select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #dee2e6;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f1f1f1;
+        }
+        .full-width {
+            flex: 1 0 100%;
+            margin: 10px;
+        }
+        .home_butt {
+            display: inline-block; /* Display button as inline block */
+            margin-bottom: 10px; /* Add margin for spacing */
+            position: relative; /* Position button relative to its normal position */
+            left: 82%;
+            top: -5%;
+            font-size: large;
+            color: #72a6dd;
+        }
+        .delete-button {
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Income Report</h1>
+    <a href="/home/{{username}}" class="home_butt">Go To Home</a>
+    <form id="income-form" method="post" action="/add_income/{{ username }}">
+        <div>
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div>
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" required>
+        </div>
+        <div class="full-width">
+            <label>&nbsp;</label>
+            <button type="submit">Add Income</button>
+        </div>
+    </form>
+    <hr>
+    <table id="income-table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for element in elements %}
+            <tr>
+                <td>{{ element[3] }}</td>
+                <td>{{ element[2] }}</td>
+                <td>
+                    <form method="post" action="/delete_income/{{ element[0] }}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
+
+<!--
+<script>
+    document.getElementById('transaction-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const date = document.getElementById('date').value;
+        const category = document.getElementById('category').value;
+        const amount = document.getElementById('amount').value;
+        const type = document.getElementById('type').value;
+
+        const table = document.getElementById('transactions-table').getElementsByTagName('tbody')[0];
+
+        const newRow = table.insertRow();
+
+        const dateCell = newRow.insertCell(0);
+        const categoryCell = newRow.insertCell(1);
+        const amountCell = newRow.insertCell(2);
+        const typeCell = newRow.insertCell(3);
+        const actionCell = newRow.insertCell(4);
+
+        dateCell.textContent = date;
+        categoryCell.textContent = category;
+        amountCell.textContent = amount;
+        typeCell.textContent = type;
+        actionCell.innerHTML = '<button onclick="deleteTransaction(this)">Delete</button>';
+
+        document.getElementById('transaction-form').reset();
+    });
+
+    function deleteTransaction(button) {
+        const row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+</script>
+-->

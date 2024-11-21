@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            background: url('https://wallpapers.com/images/hd/money-background-rhe8ib5o2667axpi.jpg') no-repeat center center fixed;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .logout-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background-color: #ff7e5f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .logout-btn:hover {
+            background-color: #feb47b;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.65);
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            position: relative; /* Added for positioning the button inside */
+        }
+        .header {
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #000000;
+        }
+        .card {
+            display: inline-block;
+            width: 30%;
+            margin: 10px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            min-width: fit-content;
+        }
+        .card h2 {
+            text-decoration: none;
+            margin-top: 0;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .card p {
+            text-decoration: none;
+            font-size: 1.2em;
+            margin: 10px 0;
+            color: #555;
+        }
+        .income { background-color: #e0f7fa; }
+        .expenses { background-color: #ffebee; }
+        .budget { background-color: #e8f5e9; }
+        .balance { background-color: rgb(248, 232, 255);}
+        .transactions { background-color: rgb(248, 248, 209); }
+        .stats { background-color: #f9eddb;}
+        .crypto {background-color: #c3f0f1; }
+        .stock {background-color: #f8bbd0; }
+    </style>
+</head>
+<body>
+    <a href="/logout" class="logout-btn">Logout</a>
+    <div class="container">
+        <div class="header">
+            <h1>Finance Dashboard</h1>
+        </div>
+        <div class="small">
+            <a href="{{ url_for('add_income', username=username) }}">
+            <div class="card income">
+                <h2>Income</h2>
+                <p id="income-value" alt="0">${{income}}</p>             
+            </div>
+            </a>
+            <div class="card balance">
+                <h2>Balance</h2>
+                <p id="balance-value" alt="0">${{balance}}</p>
+            </div>
+
+            <div class="card expenses">
+                <h2>Expenses</h2>
+                <p id="expenses-value" alt="0">${{expenses}}</p>
+            </div>
+            <a href="{{ url_for('budget', username=username) }}">
+            <div class="card budget">
+                <h2>Budget</h2>
+                <p id="budget-value">${{budget}}</p>
+            </div>
+            </a>
+            
+                <a href="{{ url_for('transactions', username=username) }}">
+                    <div class="card transactions">
+                        <h2 class="subhead">Transactions</h2>
+                        <p>{{transnum}} transaction/s made</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('view_stats', username=username) }}" >
+                    <div class="card stats">
+                        <h2 class="subhead">Stats</h2>
+                        <p>view stats</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('update_crypto', username=username) }}">
+                    <div class="card crypto">
+                        <h2 class="subhead">UPDATE CRYPTO</h2>
+                        <p>BOUGHT/SOLD CRYPTO</p>
+                    </div>
+                </a>
+                <a href="{{ url_for('update_stock', username=username) }}">
+                    <div class="card stock">
+                        <h2 class="subhead">UPDATE STOCK</h2>
+                        <p>BOUGHT/SOLD STOCK</p>
+                    </div>
+                </a>
+        </div>
+    </div>
+</body>
+</html>
+
